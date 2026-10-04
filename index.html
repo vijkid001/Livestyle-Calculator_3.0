@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LiveStyle Interiors - Complete 3 BHK Estimator</title>
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#222222"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div class="container">
+  <h1>LiveStyle Interiors</h1>
+  <p class="sub-title">Complete 3 BHK / Home Interior Estimator</p>
+
+  <label>Select Estimation Type</label>
+  <select id="calcType" onchange="toggleSections()">
+    <option value="default">Default (Preset 3 BHK Scope)</option>
+    <option value="custom">Customized (Custom Dimensions)</option>
+  </select>
+
+  <!-- DEFAULT SECTION -->
+  <div id="defaultSection">
+    <h2>Default House Configuration</h2>
+
+    <label>Select House Type</label>
+    <select id="bhkType" onchange="calculateEstimate()">
+      <option value="2">2 BHK</option>
+      <option value="3" selected>3 BHK</option>
+      <option value="4">4 BHK</option>
+      <option value="5">5 BHK</option>
+    </select>
+
+    <label>Quality Grade</label>
+    <select id="defaultMaterial" onchange="calculateEstimate()">
+      <option value="Ultra">Ultra (Hettich / Premium Laminate & Acrylic)</option>
+      <option value="Good" selected>Good (Commercial Plywood & Standard Finish)</option>
+      <option value="Economy">Economy (Basic Budget Grade)</option>
+    </select>
+
+<h3>Select Scope Items to Include:</h3>
+
+<!-- Scope items are selected by default and can be individually excluded. -->
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin: 15px 0;">
+
+  <label>
+    <input type="checkbox" class="scope-item" id="incWardrobes" checked onchange="updateScopeState()">
+    Bedroom Wardrobes & Lofts
+  </label>
+
+  <label>
+    <input type="checkbox" class="scope-item" id="incKitchen" checked onchange="updateScopeState()">
+    Modular Kitchen & Storage
+  </label>
+
+  <label>
+    <input type="checkbox" class="scope-item" id="incTVUnit" checked onchange="updateScopeState()">
+    TV Unit & Living Wall Panel
+  </label>
+
+  <label>
+    <input type="checkbox" class="scope-item" id="incPooja" checked onchange="updateScopeState()">
+    Pooja Unit / Mandir Setup
+  </label>
+
+  <label>
+    <input type="checkbox" class="scope-item" id="incFalseCeiling" checked onchange="updateScopeState()">
+    POP / Gypsum False Ceiling
+  </label>
+
+  <label>
+    <input type="checkbox" class="scope-item" id="incPainting" checked onchange="updateScopeState()">
+    Complete Painting & Wallpaper
+  </label>
+
+  <label>
+    <input type="checkbox" class="scope-item" id="incElectrical" checked onchange="updateScopeState()">
+    Electrical Point Modifications
+  </label>
+
+  <label>
+    <input type="checkbox" class="scope-item" id="incFurniture" checked onchange="updateScopeState()">
+    Loose Furniture (Sofa, Beds, Dining)
+  </label>
+
+</div>
+
+  </div>
+
+  <!-- CUSTOM SECTION -->
+  <div id="customSection" class="hidden">
+    <h2>Customized Woodwork Scope</h2>
+    <p class="form-hint">Step 1: Enter the number of rooms or zones, then generate them.</p>
+    <label for="roomCount">Number of Rooms/Zones</label>
+    <input type="number" id="roomCount" min="1" placeholder="e.g. 3">
+    <button onclick="generateRooms()">Generate Rooms</button>
+
+    <div id="roomsContainer"></div>
+
+    <p class="form-hint">Step 2: For each room, enter the number of woodwork parts. Dimension fields will appear for each part.</p>
+    <label>Select Material Grade</label>
+    <select id="customMaterial" onchange="calculateEstimate()">
+      <option value="Ultra">Ultra</option>
+      <option value="Good" selected>Good</option>
+      <option value="Economy">Economy</option>
+    </select>
+  </div>
+
+  <p id="estimateMessage" class="form-message" role="status" aria-live="polite"></p>
+  <button type="button" onclick="calculateEstimate()">Calculate Total Scope Estimate</button>
+
+  <!-- RESULT -->
+  <div class="result">
+    <h2>Estimation Summary</h2>
+    <div class="summary-box">
+      <p><strong>Total Woodwork Sq Ft:</strong> <span id="totalSqft">0</span></p>
+      <p><strong>Woodwork Material Cost:</strong> ₹ <span id="materialCost">0</span></p>
+      <p><strong>Woodwork Labour Cost:</strong> ₹ <span id="labourCost">0</span></p>
+      <p><strong>Turnkey Grand Total:</strong> ₹ <span id="totalCost">0</span></p>
+    </div>
+    <hr>
+    <h2>Itemized Scope Breakdown</h2>
+    <div id="calculationBreakdown"></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <h1>LiveStyle Interiors</h1>
+
+  <p class="sub-title">
+    Smart Turnkey Interior Estimation Platform
+  </p>
+
+  <!-- VISIT COUNTER BADGE -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <span style="background: #e0e0e0; padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: bold; color: #333;">
+      👀 Total Visits: <span id="visitCount">Loading...</span>
+    </span>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./service-worker.js");
+  }
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3490f4a7f64343fb980534111ebe0d25"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
